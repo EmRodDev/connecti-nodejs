@@ -1,0 +1,17 @@
+<main class="container container-forms">
+    <h1><%- namePage %></h1>
+
+    <form action="/sign-in" method="POST" class="default-form">
+        <div class="field">
+            <label>E-mail</label>
+            <input type="email" name="email" placeholder="Your email">
+        </div>
+        <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" placeholder="Your password">
+        </div>
+        <div class="field send">
+            <input type="submit" class="btn btn-rose" value="Sign in">
+        </div>
+    </form>
+</main>
