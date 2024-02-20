@@ -18,17 +18,28 @@
         </a>
         <nav class="nav">
             <a href="#">Create group</a>
-            <a href="#">Sign in</a>
-            <a href="/create-account">Sign up</a>
+            <a href="/sign-in">Sign in</a>
+            <a href="/sign-up">Sign up</a>
         </nav>
     </header>
+    <% if(locals.messages) {%>
+        <% const category = Object.keys(locals.messages)%>
+        <% if(category.length){ %>
+            <% locals.messages[category].forEach(alert => { %>
+                <div class="alerts">
+                    <p class="alert <%= category %> "><%= alert %></p>
+                </div>
+            <% }) %>
+        <% } %>
+    <% } %>
+
     <%- body %>
 
     <footer class="site-footer container">
         <nav class="nav">
             <a href="#">Create group</a>
-            <a href="#">Sign in</a>
-            <a href="/create-account">Sign up</a>
+            <a href="/sign-in">Sign in</a>
+            <a href="/sign-up">Sign up</a>
         </nav>
         <p class="copyright">Connecti <%- year%> &copy; - All rights reserved</p>
     </footer>
