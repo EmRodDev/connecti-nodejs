@@ -73,6 +73,7 @@ p {
     width: 100%;
     display: block;
     flex : 0 0 100%;
+    justify-content: center;
 }
 @media (min-width: 768px) {
     .btn {
@@ -433,8 +434,8 @@ trix-toolbar .trix-button--icon-strike {
     display: none;
 }
 
-/** Administración **/
-.panel-administracion {
+/** Administration **/
+.panel-admin {
     padding: 4rem 0;
 }
 .container-buttons {
