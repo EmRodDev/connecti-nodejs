@@ -12,6 +12,8 @@ const passport = require('./config/passport.js');
 //DB configuration and models
 const db = require('./config/db.js');
 require('./models/Users.js');
+require('./models/Categories.js');
+require('./models/Groups.js');
 db.sync().then(() => console.log('Connected to DB')).catch(err => console.error(err));
 
 //Environment variables
