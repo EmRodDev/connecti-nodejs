@@ -4,6 +4,7 @@ const homeController = require('../controllers/homeController.js');
 const usersController = require('../controllers/usersController.js');
 const authController = require('../controllers/authController.js');
 const adminController = require('../controllers/adminController.js');
+const groupsController = require('../controllers/groupsController.js');
 
 
 module.exports = function (){
@@ -18,8 +19,18 @@ module.exports = function (){
     router.get('/sign-in', usersController.signInForm);
     router.post('/sign-in', authController.authenticateUser);
 
-    //Administration panel
-    router.get('/admin', adminController.adminPanel);
+    /** Administration panel **/
+    router.get('/admin', authController.authenticatedUser, adminController.adminPanel);
+
+    /** New groups **/
+    router.get('/new-group',
+        authController.authenticatedUser,
+        groupsController.newGroupForm
+    );
+
+    router.post('/new-group',
+        groupsController.createGroup
+    );
 
     return router
 }
