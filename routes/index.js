@@ -29,9 +29,34 @@ module.exports = function (){
     );
 
     router.post('/new-group',
+        authController.authenticatedUser,
         groupsController.uploadImage,
         groupsController.createGroup
     );
+
+    //Edit groups
+    router.get('/edit-group/:groupId',
+        authController.authenticatedUser,
+        groupsController.editGroupForm
+    );
+
+    router.post('/edit-group/:groupId',
+    authController.authenticatedUser,
+    groupsController.editGroup
+    );
+
+    //Edit group images
+    router.get('/img-group/:groupId',
+    authController.authenticatedUser,
+    groupsController.editImgForm
+    );
+
+    router.post('/img-group/:groupId',
+    authController.authenticatedUser,
+    groupsController.uploadImage,
+    groupsController.editImg
+    );
+
 
     return router
 }

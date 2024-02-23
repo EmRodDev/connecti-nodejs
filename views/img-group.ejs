@@ -1,0 +1,18 @@
+<main class="container container-forms">
+    <h1><%= namePage %></h1>
+    <form class="default-form" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <label>Image</label>
+            <input type="file" name="image">
+        </div>
+        <% if (group.image) {%>
+            <div class="field">
+                <label>Actual Image</label>
+                <img src="/uploads/groups/<%= group.image %>" width="200">
+            </div>
+        <% } %>
+        <div class="field send">
+            <input type="submit" value="Upload Image" class="btn btn-rose">
+        </div>
+    </form>
+</main>
