@@ -29,6 +29,7 @@ module.exports = function (){
     );
 
     router.post('/new-group',
+        groupsController.uploadImage,
         groupsController.createGroup
     );
 
