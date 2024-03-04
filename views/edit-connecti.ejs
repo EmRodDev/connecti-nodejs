@@ -1,0 +1,88 @@
+
+<main class="container container-forms">
+    <h1><%- namePage %></h1>
+    <form class="default-form" method="POST">
+        <legend>About the Connecti</legend>
+        <div class="field">
+            <label>Group</label>
+            <select name="groupId">
+                    <option value="" disabled>-- Select a group --</option>
+                    <% if(groups.length > 0) { %>
+                        <% groups.forEach(group => { %>
+                            <option <%= (connecti.groupId == group.id) ? 'selected' : '' %> value="<%= group.id %>"><%= group.name %></option>
+                        <% }) %>
+                    <% } %>
+            </select>
+        </div>
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="title" value="<%= connecti.title %>">
+        </div>
+        <div class="field">
+            <label>Guest</label>
+            <input type="text" name="guest" value="<%= connecti.guest %>">
+        </div>
+        <div class="columns-2 grid">
+            <div class="field">
+                <label>Date</label>
+                <input type="date" name="date" value="<%= connecti.date %>">
+            </div>
+            <div class="field">
+                <label>Hour</label>
+                <input type="time" name="hour" value="<%= connecti.hour %>">
+            </div>
+        </div>
+        <div class="field">
+            <label>Quota</label>
+            <input type="number" min="1" name="quota" value="<%= connecti.quota %>">
+        </div>
+        <div class="field description">
+            <label>Description</label>
+            <div class="container-editor">
+                <input type="hidden" id="x" name="description" value="<%= connecti.description %>">
+                <trix-editor input="x"></trix-editor>
+            </div>
+        </div>
+        <legend>Connecti's location</legend>
+        <div class="field finder">
+            <label>Put the Connecti's address</label>
+            <div class="container-input">
+                <input type="text" id="formfinder" placeholder="Address">
+                <small>The assistant will put an estimated address</small>
+            </div>
+        </div>
+
+        <div class="field map-container">
+            <div id="map"></div>
+            <p class="information">Move the pin to the exact point, if necessary</p>
+        </div>
+        
+        <p class="information">Confirm that the following fields are correct:</p>
+
+        <div class="field">
+            <label>Address</label>
+            <input type="text" id="address" name="address" value="<%= connecti.address %>">
+        </div>
+        <div class="field">
+            <label>City</label>
+            <input type="text" id="city" name="city" value="<%= connecti.city %>">
+        </div>
+        <div class="field">
+            <label>State</label>
+            <input type="text" id="state" name="state" value="<%= connecti.city %>">
+        </div>
+        <div class="field">
+            <label>Country</label>
+            <input type="text" id="country" name="country" value="<%= connecti.country %>">
+        </div>
+        <div class="field">
+            <input type="text" id="lat" name="lat" hidden value="<%= connecti.location.coordinates[0] %>">
+        </div>
+        <div class="field">
+            <input type="text" id="lng" name="lng" hidden value="<%= connecti.location.coordinates[1] %>">
+        </div>
+        <div class="field send">
+            <input type="submit" class="btn btn-rose" value="Save Changes">
+        </div>        
+    </form>
+</main>

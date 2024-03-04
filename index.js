@@ -14,6 +14,7 @@ const db = require('./config/db.js');
 require('./models/Users.js');
 require('./models/Categories.js');
 require('./models/Groups.js');
+require('./models/Connectis.js');
 db.sync().then(() => console.log('Connected to DB')).catch(err => console.error(err));
 
 //Environment variables

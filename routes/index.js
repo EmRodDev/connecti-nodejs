@@ -5,6 +5,7 @@ const usersController = require('../controllers/usersController.js');
 const authController = require('../controllers/authController.js');
 const adminController = require('../controllers/adminController.js');
 const groupsController = require('../controllers/groupsController.js');
+const connectisController = require('../controllers/connectisController.js');
 
 
 module.exports = function (){
@@ -57,6 +58,47 @@ module.exports = function (){
     groupsController.editImg
     );
 
+    //Delete groups
+    router.get('/delete-group/:groupId',
+    authController.authenticatedUser,
+    groupsController.deleteGroupForm
+    );
+
+    router.post('/delete-group/:groupId',
+    authController.authenticatedUser,
+    groupsController.deleteGroup
+    );
+
+    //New Connecti
+    router.get('/new-connecti',
+    authController.authenticatedUser,
+    connectisController.newConnectiForm
+    );
+    router.post('/new-connecti',
+    authController.authenticatedUser,
+    connectisController.sanitizeConnecti,
+    connectisController.newConnecti
+    );
+
+    //Edit Connecti
+    router.get('/edit-connecti/:id',
+    authController.authenticatedUser,
+    connectisController.editConnectiForm
+    );
+    router.post('/edit-connecti/:id',
+    authController.authenticatedUser,
+    connectisController.editConnecti
+    );
+
+    //Delete Connecti
+    router.get('/delete-connecti/:id',
+    authController.authenticatedUser,
+    connectisController.deleteConnectiForm
+    );
+    router.post('/delete-connecti/:id',
+    authController.authenticatedUser,
+    connectisController.deleteConnecti
+    );
 
     return router
 }

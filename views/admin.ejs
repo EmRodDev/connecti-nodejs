@@ -8,21 +8,28 @@
     </div>
 
     <div class="section-admin">
-        <h2>Your Connecti's</h2>
-        <ul>
-            <li>
-                <div class="info-admin">
-                    <p class="date">Monday, May 22nd 2019</p>
-                    <h3>Uruguay E-Commerce</h3>
-                    <small>23 Assistants</small>
-                </div>
-                <div class="actions container-buttons">
-                    <a href="#" class="btn btn-green">Edit</a>
-                    <a href="#" class="btn btn-blue2" style="padding: 1rem 2rem; white-space:nowrap">View assistants</a>
-                    <a href="#" class="btn btn-red">Delete</a>
-                </div>
-            </li>
-        </ul>
+        <h2>Upcoming Connecti's</h2>
+        <% if (connectis.length > 0) {%>
+            <ul>
+                <% connectis.forEach(connecti => { %>
+                    <li>
+                        <div class="info-admin">
+                            <% const date = connecti.date + ' ' + connecti.hour; %>
+                            <p class="date"><%= moment(date).format('LLLL'); %></p>
+                            <h3><%= connecti.title %></h3>
+                            <small><%= connecti.interested.length %> Interested</small>
+                        </div>
+                        <div class="actions container-buttons">
+                            <a href="/edit-connecti/<%= connecti.id %>" class="btn btn-green">Edit</a>
+                            <a href="/assistants-connecti/<%= connecti.id %>" class="btn btn-blue2" style="padding: 1rem 2rem; white-space:nowrap">View assistants</a>
+                            <a href="/delete-connecti/<%= connecti.id %>" class="btn btn-red">Delete</a>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>You don't have any upcoming Connecti's</p>
+        <% } %>
     </div>
     <div class="section-admin">
         <h2>Your Groups</h2>
@@ -43,6 +50,30 @@
             </ul>
         <% } else { %>
             <p> You don't have any group created</p>
+        <% } %>
+    </div>
+    <div class="section-admin">
+        <h2>Previous Connecti's</h2>
+        <% if (previous.length > 0) {%>
+            <ul>
+                <% previous.forEach(connecti => { %>
+                    <li>
+                        <div class="info-admin">
+                            <% const date = connecti.date + ' ' + connecti.hour; %>
+                            <p class="date"><%= moment(date).format('LLLL'); %></p>
+                            <h3><%= connecti.title %></h3>
+                            <small><%= connecti.interested.length %> Interested</small>
+                        </div>
+                        <div class="actions container-buttons">
+                            <a href="/edit-connecti/<%= connecti.id %>" class="btn btn-green">Edit</a>
+                            <a href="/assistants-connecti/<%= connecti.id %>" class="btn btn-blue2" style="padding: 1rem 2rem; white-space:nowrap">View assistants</a>
+                            <a href="/delete-connecti/<%= connecti.id %>" class="btn btn-red">Delete</a>
+                        </div>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>You don't have any previous Connecti's</p>
         <% } %>
     </div>
 </main>

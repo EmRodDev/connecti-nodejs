@@ -4,9 +4,10 @@ const Groups = require ('../models/Groups.js');
 const multer = require('multer');
 const shortid = require('shortid');
 const fs = require('fs');
+const maxSize = 2 * 1000 * 1000;
 
 const multerConfig = {
-    limits: { fileSize: 100000},
+    limits: { fileSize: maxSize},
     storage: fileStorage = multer.diskStorage({
         destination: (req, file, next) => {
             next(null, __dirname+'/../public/uploads/groups/')
@@ -33,7 +34,7 @@ const upload = multer(multerConfig).single('image');
 exports.uploadImage = (req, res, next) => {
     upload(req,res, function(err){
         if(err){
-            //TODO: Handle errors
+            //Handle errors
             if(err instanceof multer.MulterError){
                 if(err.code === 'LIMIT_FILE_SIZE'){
                     req.flash('error','The image file is too large');
@@ -79,7 +80,7 @@ exports.createGroup = async (req, res) => {
     
     
     try{
-        //Store on the DB>
+        //Store on the DB
         await Groups.create(group);
         req.flash('success', 'The group was created successfully');
         res.redirect('/admin');
@@ -188,5 +189,65 @@ exports.editImg = async (req, res, next) => {
     //Store changes on the DB
     await group.save();
     req.flash('success','Changes saved successfully');
+    res.redirect('/admin');
+}
+
+//Show the form to delete the group
+exports.deleteGroupForm = async (req, res, next) => {
+    const group = await Groups.findOne({
+        where: {
+            id: req.params.groupId, 
+            userId: req.user.id
+        }
+    });
+
+    if(!group){
+        req.flash('Error', 'Invalid operation');
+        res.redirect('/');
+        return next();
+    };
+
+    //Execute the view
+    res.render('delete-group',{
+        namePage: `Delete Group: ${group.name}`
+    });
+
+}
+
+//Delete the group and the image
+exports.deleteGroup = async (req, res, next) => {
+    const group = await Groups.findOne({
+        where: {
+            id: req.params.groupId, 
+            userId: req.user.id
+        }
+    });
+
+    if(!group){
+        req.flash('Error', 'Invalid operation');
+        res.redirect('/');
+        return next();
+    };
+
+    if(group.image){
+        const imgPath = __dirname + `/../public/uploads/groups/${group.image}`;
+
+        //Delete file
+        fs.unlink(imgPath, (err) => {
+            if(err){
+                console.error(err);
+            }
+        });
+    }
+
+    //Delete the group
+    await Groups.destroy({
+        where: {
+            id: req.params.groupId
+        }
+    });
+
+    //Redirect
+    req.flash('success', 'Deleted group successfully');
     res.redirect('/admin');
 }
