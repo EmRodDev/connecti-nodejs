@@ -153,6 +153,14 @@ p {
     margin: 0;
 }
 
+/** Next events **/
+.next-events img{
+    width: 100%;
+    height: 100%;
+}
+
+/** Author **/
+
 .info-author {
     display: flex;
     justify-content: space-between;
@@ -167,13 +175,31 @@ p {
     background-color: #e1e1e1;
     height: 50px;
     width: 50px;
+    overflow: hidden;
 }
+
+.info-author .image img{
+    max-width: unset;
+    width: 90px!important;
+    height: 100%;
+}
+
 .info-author .author {
     font-weight: 700;
     margin-top: .5rem;
 }
 .info-author p {
     margin: 0;
+}
+
+.info .author .name{
+    color:#062730;
+    font-weight: bold;
+}
+
+.info .author .group{
+    color:#062730;
+    font-weight: bold;
 }
 
 
@@ -466,7 +492,7 @@ trix-toolbar .trix-button--icon-strike {
     }
 }
 
-/** listing de events admin**/
+/** listing of events admin**/
 .section-admin{
     padding-top: 2rem;
 }
@@ -527,21 +553,37 @@ trix-toolbar .trix-button--icon-strike {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
 }
+
+.question-assist form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
 .question-assist p {
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
     text-align: center;
 }
-.opciones-assist {
+
+.question-assist .message{
+    position: relative;
+    top: 30px;
+    
+}
+
+.options-assist {
     display: flex;
     justify-content: space-between;
 }
-.opciones-assist a{
+.options-assist a{
     flex: 1;
 }
-.opciones-assist a:first-of-type{
+.options-assist a:first-of-type{
     margin-right: 2rem;
 }
 .content-event {
@@ -563,46 +605,99 @@ trix-toolbar .trix-button--icon-strike {
 }
 
 /** assistants **/
-.assistants .titulo {
+
+div.assistants h1,
+.assistants .no-assistants {
+    text-align: center;
+}
+
+.assistants .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.assistants .titulo a {
+.assistants .title a {
     color: #068D9D;
     font-weight: 700;
     font-size: 1.4rem;
 }
+
 .list-assistants {
+    padding-bottom: 4rem;
+}
+
+.list-assistants li {
     display: flex;
     justify-content: space-between;
-
-}
-.list-assistants li {
-    flex: 0 0 calc(33.3% - 1rem);
-    height: 200px;
-    background-color: white;
-    border: 1px solid #C7C7C7;
+    align-items: center;
+    padding : 2rem;
+    border: 3px solid #EAEAEA;
+    border-bottom: none;
 }
 
+.list-assistants li:last-of-type {
+    border-bottom: 3px solid #EAEAEA;
+}
+
+@media (min-width: 768px) {
+    .list-assistants {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+}
+
+.list-assistants .text {
+    flex: 1;
+    font-size: 2rem;
+}
+
+.list-assistants .image {
+    margin-right: 3rem;
+    border-radius: 50%;
+    background-color: #e1e1e1;
+    height: 70px;
+    width: 70px;
+    overflow: hidden;
+}
+
+.list-assistants .image img {
+    max-width: unset;
+    width: 80px!important;
+}
+
+/** comments **/
 .comment {
     display: flex;
     margin-bottom: 2rem;
 }
+
 .comment .image {
     flex: 0 0 80px;
     height: 80px;
     background-color: #333;
     border-radius: 50%;
     margin-right: 2rem;
+    overflow: hidden;
 }
+
+.comment .image img{
+    width: 100%;
+    height: 100%;
+}
+
 .comment .text {
     padding: 2rem;
     border: 1px solid #C7C7C7;
     background-color: white;
+    flex: 1;
 }
+
 .comment .text p {
     margin: 0;
+}
+
+.comment input {
+    margin-top: 1em;
 }
 
 
@@ -665,3 +760,61 @@ aside img {
     height: 100%;
 }
  
+.location-connecti {
+    width: auto;
+    height: 300px;
+}
+
+/**Information about users and groups**/
+.info-user,
+.info-group {
+        margin-top:2rem;
+}
+.info-group a.url {
+    margin-top: 1rem;
+    display: block;
+}
+@media (min-width: 660px) {
+    .info-user,
+    .info-group {
+        display: flex;
+        justify-content: space-between;
+    }
+    .info-user .image,
+    .info-group .image {
+        flex: 0 0 40%;
+    }
+    .info-user .image img{
+        width: 100%;
+        height: 100%;
+    }
+    .info-user .text,
+    .info-group .text{
+        flex: 0 0 calc(60% - 3rem)
+    }
+}
+.info-user div,
+.info-group div  {
+    font-size: 1.2rem;
+    text-align: left;
+    line-height: 2;
+    font-weight: 400;
+    font-family:  'Raleway', sans-serif;
+}
+
+.list-groups  {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.list-groups li{
+    flex: 0 0 calc(50% - 1rem);
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+    .list-groups li{
+        flex: 0 0 calc(33.3% - 2rem);
+        
+    }
+}
