@@ -4,7 +4,8 @@
         <a href="/new-group" class="btn btn-yellow">New group</a>
         <a href="/new-connecti" class="btn btn-blue">New Connecti</a>
         <a href="/edit-profile" class="btn btn-rose">Edit profile</a>
-        <a href="/image-profile" class="btn btn-yellow">Profile image</a>
+        <a href="/change-password" class="btn btn-green">Change Password</a>
+        <a href="/img-profile" class="btn btn-yellow">Profile image</a>
     </div>
 
     <div class="section-admin">
@@ -16,7 +17,9 @@
                         <div class="info-admin">
                             <% const date = connecti.date + ' ' + connecti.hour; %>
                             <p class="date"><%= moment(date).format('LLLL'); %></p>
-                            <h3><%= connecti.title %></h3>
+                            <a href="/connecti/<%= connecti.slug %>" target="_blank">
+                                <h3><%= connecti.title %></h3>
+                            </a>
                             <small><%= connecti.interested.length %> Interested</small>
                         </div>
                         <div class="actions container-buttons">
