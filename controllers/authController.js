@@ -21,3 +21,18 @@ exports.authenticatedUser = (req, res, next) => {
     return res.redirect('/sign-in');
 
 }
+
+exports.logOut = (req, res, next) => {
+    req.logout(function(err){
+        if(err){
+            req.flash('error',err);
+            res.redirect('/');
+            return next();
+        }
+
+        req.flash('success','Log out successfull');
+        res.redirect('/sign-in');
+        return next();
+    });
+    
+} 
