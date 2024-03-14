@@ -1,8 +1,10 @@
 import { OpenStreetMapProvider } from "leaflet-geosearch";
+import assistance from './assistance.js';
+import deleteComment from './delete-comment.js';
 
 //Get DB values
-const lat = document.querySelector('#lat').value || 51.505;
-const lng = document.querySelector('#lng').value || -0.09;
+const lat = document.querySelector('#lat')?.value || 51.505;
+const lng = document.querySelector('#lng')?.value || -0.09;
 const address = document.querySelector('#address').value || '';
 
 
