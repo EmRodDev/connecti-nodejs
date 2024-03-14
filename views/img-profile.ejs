@@ -1,0 +1,19 @@
+<main class="container container-forms">
+    <h1><%= namePage %></h1>
+    <form class="default-form" method="POST" enctype="multipart/form-data">
+        <legend>Upload your profile image or change it</legend>
+        <div class="field">
+            <label>Image</label>
+            <input type="file" name="image">
+        </div>
+        <% if (user.image) {%>
+            <div class="field">
+                <label>Actual Image</label>
+                <img src="/uploads/profiles/<%= user.image %>" width="200">
+            </div>
+        <% } %>
+        <div class="field send">
+            <input type="submit" value="Upload Image" class="btn btn-rose">
+        </div>
+    </form>
+</main>

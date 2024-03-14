@@ -1,0 +1,127 @@
+<div class="header-event">
+    <div class="container">
+        <div class="summary-event">
+            <h1><%= connecti.title %></h1>
+            <div class="info-author">
+                <div class="image">
+                    <% if(connecti.user.image){ %>
+                        <img src="/uploads/profiles/<%= connecti.user.image %>">
+                    <% } %>
+                </div>
+                <div class="info">
+                    <p>Organized by:</p>
+                    <div class="author">
+                        <a class="name" href="/users/<%= connecti.user.id %>"><%= connecti.user.name %></a> Creator of:
+                        <a class="group" href="/groups/<%= connecti.group.id %>"><%= connecti.group.name %></a>
+                    </div>
+                </div>
+            </div><!--info-author-->
+        </div><!--summary-event-->
+
+        <div class="question-assist">
+            <% if(user.id && user.id != connecti.user.id){ %>
+                <% const exist = connecti.interested.includes(user.id) %>
+                <form action="/confirm-assistance/<%= connecti.slug %>" id="confirm-assistance">
+                    <p>Will you assist?</p>
+                    <% if(exist){ %>
+                        <input type="hidden" id="actionInput" value="cancel">
+                        <input type="submit" class="btn btn-red" value="Cancel">
+                    <% } else { %>
+                        <input type="hidden" id="actionInput" value="confirm">
+                        <input type="submit" class="btn btn-blue" value="Yes">
+                    <% } %>
+                    <div class="message"></div>
+                </form>
+            <% }else if(user.id === connecti.user.id) {%>
+                <a href="/edit-connecti/<%= connecti.id %>" class="btn btn-blue">Edit Connecti</a>
+            <% } else if(!user.id){ %>
+                <p>Sign in to confirm your assistance</p>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<main class="content-event">
+    <div class="container">
+        <div class="info-event">
+            <div class="description">
+                <% if(connecti.group.image){ %>
+                    <img src="/uploads/groups/<%= connecti.group.image %>" alt="">
+                <% } else {%>
+                    <img src="/img/logo.png">
+                <% } %>
+                <p>
+                    <%- connecti.description %>
+                </p>
+            </div><!--description-->
+            <div class="assistants">
+                <div class="title">
+                    <h3><%= connecti.interested.length%> attendees</h3>
+                    <a href="/attendees/<%=connecti.slug%>">See all</a>
+                </div>
+            </div><!--assistants-->
+            <div class="comments">
+                <h2>Comments</h2>
+                <% if (comments.length > 0) { %>
+                    <% comments.forEach(comment => { %>
+                        <div class="comment">
+                            <div class="image">
+                                <% if(comment.user.image){ %>
+                                    <img src="/uploads/profiles/<%= comment.user.image %>">
+                                <% } %>
+                            </div>
+                            <div class="text">
+                                <p><%= comment.message %></p>
+                                <p>Written by: 
+                                    <a href="/users/<%= comment.user.id %>"><%= comment.user.name %></a>
+                                </p>
+                                <% if(comment.user.id === user.id || user.id === connecti.user.id) {%>
+                                    <form action="/delete-comment" method="POST" class="delete-comment">
+                                        <input type="hidden" name="commentId" value="<%= comment.id %>">
+                                        <input type="submit" value="Delete" class="btn btn-blue">
+                                    </form>
+                                    
+                                <% } %>
+                                
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <p>There is no comments yet</p>
+                <% } %>
+
+                <!--comments form-->
+                <% if(user.id) {%>
+                    <form action="/connecti/<%= connecti.id %>" method="POST" class="default-form comments">
+                        <legend>Post a comment</legend>
+                        <div class="field">
+                            <label>Comment</label>
+                            <textarea name="comment"></textarea>
+                        </div>
+                        <div class="field send">
+                            <input type="submit" value="Send" class="btn btn-rose">
+                        </div>
+                    </form>
+                <% } else {%>
+                    <p> Sign in to add a comment</p>
+                <% } %>
+                <!--/comments form-->
+            </div><!--comments-->
+        </div><!--information-event-->
+
+        <aside class="information">
+            <div class="date">
+                <% const date = `${connecti.date} ${connecti.hour}` %>
+                <p><%= moment(date).format('LLLL') %></p>
+            </div>
+            <div class="location">
+                <p><%= connecti.address %></p>
+            </div>
+            <!--location's map-->
+            <input type="hidden" id="lat" value="<%= connecti.location.coordinates[0] %>">
+            <input type="hidden" id="lng" value="<%= connecti.location.coordinates[1] %>">
+            <input type="hidden" id="address" value="<%= connecti.address %>">
+            <div class="location-connecti" id="map"></div>
+        </aside>
+    </div>
+</main>

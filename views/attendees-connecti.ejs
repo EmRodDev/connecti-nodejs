@@ -1,0 +1,24 @@
+<main class=" container assistants">
+    <h1><%= namePage %></h1>
+    
+    <% if(attendees.length > 0 ) { %>
+        <ul class="list-assistants">
+            <% attendees.forEach(attendee => { %>
+                <li>
+                    <div class="image">
+                        <% if(attendee.image) {%>
+                            <img src="/uploads/profiles/<%= attendee.image %>">
+                        <% } %>
+                    </div>
+                    <div class="text">
+                        <a href="/users/<%= attendee.id %>">
+                            <%= attendee.name %>
+                        </a>
+                    </div>
+                </li>
+            <% }) %>
+        </ul>
+    <% } else { %>
+        <p class="no-assistants"> There is no assistants</p>
+    <% } %>
+</main>

@@ -1,0 +1,35 @@
+<div class="container">
+    <h1><%= namePage %></h1>
+    <div class="info-group">
+        <div class="image">
+            <% if(group.image){%>
+                <img src="/uploads/groups/<%= group.image %>">
+            <% } else { %>
+                <img src="/img/logo.png">
+            <% } %>
+        </div>
+        <div class="text">
+            <%- group.description %>
+            <% if(group.url) { %>
+                <p></p>
+                <a target="_blank" href="<%= group.url %>" style="font-weight: bold;"> Visit our website</a>
+            <% } %>
+            <% if(connectis.length > 0) { %>
+                <h2>Next Connecti's</h2>
+                <ul class="list-connectis">
+                    <% connectis.forEach(connecti => { %>
+                        <li>
+                            <div class="text">
+                                <a href="/connecti/<%= connecti.slug %>">
+                                    <h3><%= connecti.title %></h3>
+                                    <% const date = connecti.date + ' ' + connecti.hour %>
+                                    <p class="date"> <%= moment(date).format('LLLL') %></p>
+                                </a>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        </div>
+    </div>
+</div>
