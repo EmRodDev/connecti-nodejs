@@ -15,6 +15,7 @@ require('./models/Users.js');
 require('./models/Categories.js');
 require('./models/Groups.js');
 require('./models/Connectis.js');
+require('./models/Comments.js');
 db.sync().then(() => console.log('Connected to DB')).catch(err => console.error(err));
 
 //Environment variables
@@ -58,6 +59,7 @@ app.use(flash());
 
 //Middleware (Logged user, flash messages, actual date)
 app.use((req, res, next) => {
+    res.locals.user = {...req.user} || null;
     res.locals.messages = req.flash();
     const date = new Date();
     res.locals.year = date.getFullYear();
