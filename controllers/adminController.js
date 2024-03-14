@@ -14,7 +14,10 @@ exports.adminPanel = async(req, res) => {
         where: {
             userId: req.user.id, 
             date: {[Op.gte] : moment(date).format("YYYY-MM-DD")},
-        }
+        },
+        order: [
+            ['date','DESC']
+        ]
     }));
 
     queries.push(Connectis.findAll({
