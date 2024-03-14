@@ -7,9 +7,42 @@ const adminController = require('../controllers/adminController.js');
 const groupsController = require('../controllers/groupsController.js');
 const connectisController = require('../controllers/connectisController.js');
 
+const connectisControllerFE = require('../controllers/frontend/connectisControllerFE.js');
+const usersControllerFE = require('../controllers/frontend/usersControllerFE.js');
+const groupsControllerFE = require('../controllers/frontend/groupsControllerFE.js');
+const commentsControllerFE = require('../controllers/frontend/commentsControllerFE.js');
+
 
 module.exports = function (){
+    /* PUBLIC AREA */
     router.get('/', homeController.home);
+
+    //Show a connecti
+
+    router.get('/connecti/:slug',
+    connectisControllerFE.showConnecti
+    )
+
+    //Confirm the assistance to a connecti
+    router.post('/confirm-assistance/:slug', connectisControllerFE.confirmAssistance);
+
+    //Show attendees to a connecti
+    router.get('/attendees/:slug', connectisControllerFE.showAttendees);
+
+    //Add connecti comments
+    router.post('/connecti/:id',commentsControllerFE.addComment);
+
+    //Remove connecti comments
+    router.post('/delete-comment',commentsControllerFE.deleteComment);
+
+    //Show profiles to the frontend
+    router.get('/users/:id', usersControllerFE.showUser);
+
+    //Show groups to the frontend
+    router.get('/groups/:id', groupsControllerFE.showGroup);
+
+    //Show connecti's by category
+    router.get('/category/:category', connectisControllerFE.showCategory);
 
     /** Create and confirm accounts **/
     router.get('/sign-up', usersController.createAccountForm);
@@ -20,6 +53,7 @@ module.exports = function (){
     router.get('/sign-in', usersController.signInForm);
     router.post('/sign-in', authController.authenticateUser);
 
+    /* PRIVATE AREA */
     /** Administration panel **/
     router.get('/admin', authController.authenticatedUser, adminController.adminPanel);
 
@@ -99,6 +133,46 @@ module.exports = function (){
     authController.authenticatedUser,
     connectisController.deleteConnecti
     );
+
+    //Edit profile information
+    router.get('/edit-profile',
+    authController.authenticatedUser,
+    usersController.editProfileForm
+    );
+
+    router.post('/edit-profile',
+    authController.authenticatedUser,
+    usersController.editProfile
+    );
+
+    //Change password
+    router.get('/change-password',
+    authController.authenticatedUser,
+    usersController.changePasswordForm
+    );
+
+    router.post('/change-password',
+    authController.authenticatedUser,
+    usersController.changePassword
+    );
+
+    // Profile images
+    router.get('/img-profile',
+    authController.authenticatedUser,
+    usersController.uploadImageForm
+    );
+
+    router.post('/img-profile',
+    authController.authenticatedUser,
+    usersController.uploadImage,
+    usersController.saveProfileImage
+    );
+
+    //Log out
+    router.get('/log-out',
+    authController.authenticatedUser,
+    authController.logOut
+    )
 
     return router
 }
