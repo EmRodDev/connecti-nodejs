@@ -1,6 +1,8 @@
 const Groups = require('../models/Groups.js');
 const Connectis = require('../models/Connectis.js');
 const { captureRejectionSymbol } = require('nodemailer/lib/xoauth2/index.js');
+const uuid = require('uuid');
+
 
 //Show the form for new Connecti
 
@@ -50,6 +52,10 @@ exports.newConnecti = async(req, res) => {
     if(connecti.quota === ''){
         connecti.quota = 0;
     }
+
+    //Assign the UUID
+
+    connecti.id = uuid.v4();
 
     //Store on the DB
     try{
