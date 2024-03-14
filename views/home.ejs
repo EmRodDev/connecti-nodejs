@@ -1,1 +1,92 @@
-<h1><%- namePage %></h1>
+<div class="hero">
+    
+    <h1>Find or create a group for sharing what you like most</h1>
+    <a href="/sign-up" class="btn btn-yellow">Get an account</a>
+</div>
+
+<div class="finder-home">
+    <div class="container">
+        <h2>Find a group in your city</h2>
+        <form action="#">
+            <select name="category">
+                    <option value="" disabled selected>-- Select a Category --</option>
+                    <% categories.forEach(category => { %>
+                        <option value="<%= category.id %>"><%= category.name %></option>
+                    <% }) %>
+            </select>
+            <input type="text" name="name" placeholder="Connecti's name">
+            <input type="text" name="city" placeholder="City">
+            <input type="text" name="country" placeholder="Country">
+            <input type="submit" value="Search" class="btn btn-rose">
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <h2>Next Connecti's</h2>
+    <div class="grid columns-md-3 ">
+        <% if(connectis.length > 0) { %>
+            <% connectis.forEach(connecti => { %>
+                <div class="card">
+                    <% if(connecti.group.image){ %>
+                        <img src="/uploads/groups/<%= connecti.group.image %>">
+                    <% } else {%>
+                        <img src="/img/logo.png">
+                    <% } %>
+                    <div class="card-text">
+                        <% const date = `${connecti.date} ${connecti.hour}` %>
+                        <p class="date"><%= moment(date).format('LLLL')%></p>
+                        <a href="/connecti/<%= connecti.slug %>">
+                            <h3><%= connecti.title %></h3>
+                        </a>
+                        <div class="info-author">
+                            <% if(connecti.user.image) {%>
+                                <div class="image">
+                                    <img src="/uploads/profiles/<%= connecti.user.image %>">
+                                </div>
+                            <% } else { %>
+                                <div class="image">
+                                </div>
+                            <% } %>
+                            <div class="info">
+                                <p>Organized by:</p>
+                                <p class="author"><%= connecti.user.name %></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            <% }) %>
+        <% } %>
+    </div>
+</div>
+
+<main class="bg-gris categories">
+    <h2>Find Groups By Category</h2>
+
+    <div class="container">
+        <ul class="listado-categories  grid columns-2 columns-md-3">
+            <% categories.forEach(category => { %>
+                <li>
+                    <a href="/category/<%= category.slug %>">
+                        <img src="/img/category_<%= category.id %>.jpg">
+                        <p><%= category.name %></p>
+                    </a>
+                </li>
+            <% }) %>
+        </ul>
+    </div>
+</main>
+
+<div class="meeti-bg">
+    <div class="container meeti grid columns-md-2">
+        <section>
+            <h3>Create a group</h3>
+            <p>Share what you like or your passion with everyone else, create your own group today with no cost</p>
+        </section>
+        <section>
+            <h3>Join a group</h3>
+            <p>Meet people with the same tastes and passions as yours, join an existing group and receive notifications about next events</p>
+        </section>
+    </div>
+</div>
