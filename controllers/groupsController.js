@@ -3,6 +3,7 @@ const Groups = require ('../models/Groups.js');
 
 const multer = require('multer');
 const shortid = require('shortid');
+const uuid = require('uuid');
 const fs = require('fs');
 const maxSize = 2 * 1000 * 1000;
 
@@ -78,7 +79,9 @@ exports.createGroup = async (req, res) => {
         group.image = req.file.filename;
     }
     
-    
+    //Assign the UUID
+    group.id = uuid.v4();
+
     try{
         //Store on the DB
         await Groups.create(group);
