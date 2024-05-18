@@ -76,5 +76,5 @@ app.use('/', router());
 
 //Add the port
 app.listen(process.env.PORT, () => {
-    console.log('The server is working on ' + process.env.PORT)
+    console.log('The server is working on port' + process.env.PORT)
 });

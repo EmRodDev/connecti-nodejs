@@ -1,10 +1,12 @@
 const Sequelize = require('sequelize');
+const moment = require('moment');
+const Op = Sequelize.Op;
+
 const Connectis = require('../../models/Connectis.js');
 const Groups = require('../../models/Groups.js');
 const Categories = require('../../models/Categories.js');
 const Users = require('../../models/Users.js');
 const Comments = require('../../models/Comments.js');
-const moment = require('moment');
 
 exports.showConnecti = async (req, res, next) => {
     const connecti = await Connectis.findOne(
@@ -28,6 +30,29 @@ exports.showConnecti = async (req, res, next) => {
     
     if(!connecti) res.redirect('/');
 
+    //Consult near connecti's
+    const location = Sequelize.literal(`ST_GeomFromText('POINT(${connecti.location.coordinates[0]} ${connecti.location.coordinates[1]})')`);
+
+    // ST_DISTANCE_Sphere = Returns a line in meters
+    const distance = Sequelize.fn('ST_DistanceSphere', Sequelize.col('location'), location);
+
+    //Find near connecti's
+    const near = await Connectis.findAll({
+        order: distance, //Order them from the nearest to the farthest
+        where: Sequelize.where(distance, {[Op.lte] : 2000}), //2km
+        limit: 3, //Maximum 3
+        offset: 1, //Ignore the first match
+        include : [
+            {
+                model: Groups
+            },
+            {
+                model: Users,
+                attributes: ['id','name','image']
+            }
+        ]
+    });
+
     //Request after verifying that the connecti exists
     const comments = await Comments.findAll({ 
         where: {connectiId: connecti.id},
@@ -41,6 +66,7 @@ exports.showConnecti = async (req, res, next) => {
         namePage: connecti.title,
         connecti,
         comments,
+        near,
         moment
     })
 }

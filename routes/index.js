@@ -11,6 +11,7 @@ const connectisControllerFE = require('../controllers/frontend/connectisControll
 const usersControllerFE = require('../controllers/frontend/usersControllerFE.js');
 const groupsControllerFE = require('../controllers/frontend/groupsControllerFE.js');
 const commentsControllerFE = require('../controllers/frontend/commentsControllerFE.js');
+const searchControllerFE = require('../controllers/frontend/searchControllerFE.js');
 
 
 module.exports = function (){
@@ -43,6 +44,9 @@ module.exports = function (){
 
     //Show connecti's by category
     router.get('/category/:category', connectisControllerFE.showCategory);
+
+    //Search
+    router.get('/search', searchControllerFE.search);
 
     /** Create and confirm accounts **/
     router.get('/sign-up', usersController.createAccountForm);

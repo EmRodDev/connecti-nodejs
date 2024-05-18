@@ -125,3 +125,14 @@
         </aside>
     </div>
 </main>
+
+<h2>Nearest Connecti's</h2>
+<div class="container near">
+    <% if(near.length > 0 ){ %>
+        <% near.forEach(connecti => { %>
+            <%- include ('partials/card-connecti.ejs', {connecti : connecti}) %>
+        <% }) %>
+    <% } else { %>
+    <p>There are no near Connecti's</p>    
+    <% } %>
+</div>

@@ -7,16 +7,24 @@
 <div class="finder-home">
     <div class="container">
         <h2>Find a group in your city</h2>
-        <form action="#">
+        <form action="/search" method="GET">
             <select name="category">
-                    <option value="" disabled selected>-- Select a Category --</option>
+                    <option value="" selected>-- All categories --</option>
                     <% categories.forEach(category => { %>
                         <option value="<%= category.id %>"><%= category.name %></option>
                     <% }) %>
             </select>
-            <input type="text" name="name" placeholder="Connecti's name">
+            <input type="text" name="title" placeholder="Connecti's title">
             <input type="text" name="city" placeholder="City">
-            <input type="text" name="country" placeholder="Country">
+            <select name="country">
+                <option value="" selected>-- All countries --</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Uruguay">Uruguay</option>
+                <option value="Chile">Chile</option>
+                <option value="Spain">Spain</option>
+                <option value="United States">United States</option>
+                <option value="United Kingdom">United Kingdom</option>
+            </select>
             <input type="submit" value="Search" class="btn btn-rose">
         </form>
     </div>
@@ -27,35 +35,7 @@
     <div class="grid columns-md-3 ">
         <% if(connectis.length > 0) { %>
             <% connectis.forEach(connecti => { %>
-                <div class="card">
-                    <% if(connecti.group.image){ %>
-                        <img src="/uploads/groups/<%= connecti.group.image %>">
-                    <% } else {%>
-                        <img src="/img/logo.png">
-                    <% } %>
-                    <div class="card-text">
-                        <% const date = `${connecti.date} ${connecti.hour}` %>
-                        <p class="date"><%= moment(date).format('LLLL')%></p>
-                        <a href="/connecti/<%= connecti.slug %>">
-                            <h3><%= connecti.title %></h3>
-                        </a>
-                        <div class="info-author">
-                            <% if(connecti.user.image) {%>
-                                <div class="image">
-                                    <img src="/uploads/profiles/<%= connecti.user.image %>">
-                                </div>
-                            <% } else { %>
-                                <div class="image">
-                                </div>
-                            <% } %>
-                            <div class="info">
-                                <p>Organized by:</p>
-                                <p class="author"><%= connecti.user.name %></p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
+                <%- include ('partials/card-connecti.ejs', {connecti : connecti}) %>
             <% }) %>
         <% } %>
     </div>

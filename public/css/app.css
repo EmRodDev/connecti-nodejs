@@ -818,3 +818,18 @@ aside img {
         
     }
 }
+
+/*Near*/
+
+@media (min-width: 768px) {
+    .near {
+        display: flex;
+        justify-content: space-between;
+    }
+    .near .card {
+        flex: 0 0 calc(33.3% - 2rem);
+    }
+    .near .info {
+        flex: 1;
+    }
+}

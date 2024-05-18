@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon './index.js'",
-    "start": "concurrently \"npm run dev\" \"npm run watch\"",
-    "watch": "webpack watch --mode=development"
+    "development": "concurrently \"npm run dev\" \"npm run watch\"",
+    "start": "node ./index.js",
+    "watch": "webpack watch --mode=development",
+    "db:import": "node ./seed/seeder.js -import",
+    "db:delete": "node ./seed/seeder.js -delete"
   },
   "author": "Emanuel Rodriguez",
   "license": "ISC",

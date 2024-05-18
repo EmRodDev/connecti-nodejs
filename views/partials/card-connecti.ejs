@@ -1,0 +1,29 @@
+<div class="card">
+    <% if(connecti.group.image){ %>
+        <img src="/uploads/groups/<%= connecti.group.image %>">
+    <% } else {%>
+        <img src="/img/logo.png">
+    <% } %>
+    <div class="card-text">
+        <% const date = `${connecti.date} ${connecti.hour}` %>
+        <p class="date"><%= moment(date).format('LLLL')%></p>
+        <a href="/connecti/<%= connecti.slug %>">
+            <h3><%= connecti.title %></h3>
+        </a>
+        <div class="info-author">
+            <% if(connecti.user.image) {%>
+                <div class="image">
+                    <img src="/uploads/profiles/<%= connecti.user.image %>">
+                </div>
+            <% } else { %>
+                <div class="image">
+                </div>
+            <% } %>
+            <div class="info">
+                <p>Organized by:</p>
+                <p class="author"><%= connecti.user.name %></p>
+            </div>
+        </div>
+
+    </div>
+</div>
